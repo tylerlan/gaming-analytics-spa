@@ -1,16 +1,41 @@
 import axios from 'axios';
+const BASE_URL = process.env.REACT_APP_API_URL;
 
-export const lookup = (dataType, dateRange) => {
-  const [from, to] = dateRange; // e.g. dateRange = {'2017/11/04', '2017/12/04 '}
-
-  const query = `${process.env.REACT_APP_API_URL}/${dataType}/?from=${
-    from
-  }&to=${to}`;
-
-  return axios(query)
+/* eslint func-names: ["error", "never"] */
+function get(path) {
+  return axios(path)
     .then(response => response.data)
-    .catch(e => {
-      console.error(e);
-      return 'error';
+    .catch(err => {
+      console.log(`Something went wrong querying ${path}\n`, err);
+      return err;
     });
-};
+}
+
+export default class Api {
+  static async getPUPD(dateRange) {
+    const [from, to] = dateRange; // e.g. dateRange = {'2017/11/04', '2017/12/04 '}
+    console.log('API CALL ---- PUPD');
+    const pupdData = await get(
+      `${BASE_URL}/per-unit-per-day?from=${from}&to=${to}`
+    );
+    return pupdData;
+  }
+
+  static async getAGGR(dateRange) {
+    const [from, to] = dateRange;
+    console.log('API CALL ---- AGGR');
+    const aggrData = await get(
+      `${BASE_URL}/aggr-per-day?from=${from}&to=${to}`
+    );
+    return aggrData;
+  }
+
+  static async getMFGMIX(dateRange) {
+    const [from, to] = dateRange;
+    console.log('API CALL ---- MFGMIX');
+    const mfgmixData = await get(
+      `${BASE_URL}/manufacture?from=${from}&to=${to}`
+    );
+    return mfgmixData;
+  }
+}

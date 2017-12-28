@@ -21,7 +21,7 @@ const currentMetric = (state = null, action) => {
 
 const currentDateRange = (state = null, action) => {
   switch (action.type) {
-    case CONST.SET_DATE:
+    case CONST.SET_DATERANGE:
       return action.dateRange;
     default:
       return state;
