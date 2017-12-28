@@ -5,7 +5,7 @@ import * as moment from 'moment';
 
 import NavBar from '../nav-bar/nav-bar-container';
 import ComponentSwitch from '../component-switch/component-switch-container';
-// import MetricsOfTheDay from '../daily-stats/daily-stats-container';
+import MetricsOfTheDay from '../daily-stats/daily-stats-container';
 // import GraphDrilldown from '../graph-drilldown/graph-drilldown-container';
 // import TableDrilldown from '../table-drilldown/table-drilldown-container';
 
