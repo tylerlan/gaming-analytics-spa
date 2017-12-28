@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import NavBar from '../nav-bar/nav-bar-container';
 import ComponentSwitch from '../component-switch/component-switch-container';
 import MetricsOfTheDay from '../daily-stats/daily-stats-container';
-// import GraphDrilldown from '../graph-drilldown/graph-drilldown-container';
+import GraphDrilldown from '../graph-drilldown/graph-drilldown-container';
 // import TableDrilldown from '../table-drilldown/table-drilldown-container';
 
 /* FOR TABLE */
@@ -19,8 +19,8 @@ import MetricsOfTheDay from '../daily-stats/daily-stats-container';
 // import LineChart from '../charts/line-chart/line-chart-container';
 
 const componentMap = {
-  M: MetricsOfTheDay
-  // G: GraphDrilldown
+  M: MetricsOfTheDay,
+  G: GraphDrilldown
   // T: TableDrilldown
 };
 
