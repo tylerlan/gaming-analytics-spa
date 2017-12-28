@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import IconButton from 'material-ui/IconButton';
 import List, { ListItem } from 'material-ui/List';
@@ -7,7 +8,6 @@ import { withStyles } from 'material-ui/styles';
 
 import HomeIcon from 'material-ui-icons/Home';
 import ChartIcon from 'material-ui-icons/ShowChart';
-import PowerIcon from 'material-ui-icons/Power';
 import ListIcon from 'material-ui-icons/ViewList';
 
 const sections = [
@@ -46,14 +46,9 @@ const NavBar = ({ section, onChangeSection }) => (
   </List>
 );
 
-// NavBar.propTypes = {
-//   images: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       image: PropTypes.string.isRequired,
-//       id: PropTypes.string.isRequired,
-//     }),
-//   ).isRequired,
-//   searchTerm: PropTypes.string.isRequired,
-// };
+NavBar.propTypes = {
+  section: PropTypes.string.isRequired,
+  onChangeSection: PropTypes.func.isRequired
+};
 
 export default withStyles(styles)(NavBar);

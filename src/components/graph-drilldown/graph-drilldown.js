@@ -45,7 +45,6 @@ class GraphDrilldown extends Component {
     const {
       aggrMetrics,
       aggrDates,
-      currentSection,
       currentMetric,
       currentDateRange
     } = this.props;
@@ -77,6 +76,16 @@ class GraphDrilldown extends Component {
   }
 }
 
-GraphDrilldown.propTypes = {};
+GraphDrilldown.propTypes = {
+  aggrMetrics: PropTypes.arrayOf(
+    PropTypes.shape({
+      dates: PropTypes.string.isRequired,
+      metrics: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  aggrDates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentMetric: PropTypes.string.isRequired,
+  currentDateRange: PropTypes.arrayOf(PropTypes.string).isRequired
+};
 
 export default GraphDrilldown;

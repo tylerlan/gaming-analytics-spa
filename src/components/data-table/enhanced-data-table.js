@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import keycode from 'keycode';
@@ -108,7 +107,7 @@ class EnhancedDataTable extends Component {
       let retVal = true;
       mathesItems.forEach(e => {
         const regex = new RegExp(event.target.value, 'gi');
-        if (typeof e == 'string') retVal = e.match(regex);
+        if (typeof e === 'string') retVal = e.match(regex);
       });
       return retVal;
     });
@@ -158,8 +157,6 @@ class EnhancedDataTable extends Component {
                       hover
                       onClick={event => this.handleClick(event, n.id)}
                       onKeyDown={event => this.handleKeyDown(event, n.id)}
-                      role=""
-                      aria-checked={isSelected}
                       tabIndex={-1}
                       key={n.id}
                       selected={isSelected}
@@ -203,7 +200,22 @@ class EnhancedDataTable extends Component {
 }
 
 EnhancedDataTable.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  inputData: PropTypes.arrayOf(
+    PropTypes.shape({
+      mfg: PropTypes.string.isRequired,
+      coinIn: PropTypes.number.isRequired,
+      handlePulls: PropTypes.number.isRequired,
+      netWin: PropTypes.number.isRequired,
+      theoWin: PropTypes.number.isRequired,
+      machineDays: PropTypes.number.isRequired,
+      coinInPerc: PropTypes.string.isRequired,
+      handlePullsPerc: PropTypes.string.isRequired,
+      netWinPerc: PropTypes.string.isRequired,
+      theoWinPerc: PropTypes.string.isRequired,
+      machineDaysPerc: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
 export default withStyles(styles)(EnhancedDataTable);

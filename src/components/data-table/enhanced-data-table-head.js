@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import Table, {
+import {
   TableCell,
   TableHead,
   TableRow,
@@ -16,7 +14,7 @@ class EnhancedDataTableHead extends Component {
   };
 
   render() {
-    const { order, orderBy, numSelected, rowCount, inputData } = this.props;
+    const { order, orderBy } = this.props;
 
     const columnData = [
       {
@@ -116,11 +114,9 @@ class EnhancedDataTableHead extends Component {
 }
 
 EnhancedDataTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
+  orderBy: PropTypes.string.isRequired
 };
 
 export default EnhancedDataTableHead;

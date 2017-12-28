@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorderIcon from 'material-ui-icons/StarBorder';
+import { GridList, GridListTile } from 'material-ui/GridList';
 import DailyStatCard from '../daily-stat-card/daily-stat-card-container';
 
 const styles = theme => ({
@@ -43,7 +41,14 @@ const MetricsOfTheDay = ({ todaysMetrics, mostRecentDayWithData }) => (
 );
 
 MetricsOfTheDay.propTypes = {
-  todaysMetrics: PropTypes.object.isRequired
+  todaysMetrics: PropTypes.shape({
+    coinIn: PropTypes.number.isRequired,
+    netWin: PropTypes.number.isRequired,
+    handlePulls: PropTypes.number.isRequired,
+    actualHoldPercent: PropTypes.number.isRequired,
+    theoHoldPercent: PropTypes.number.isRequired
+  }).isRequired,
+  mostRecentDayWithData: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(MetricsOfTheDay);

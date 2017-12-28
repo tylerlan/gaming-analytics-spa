@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import ReactEcharts from 'echarts-for-react';
 
 class EchartsLineGraph extends Component {
@@ -88,14 +88,20 @@ class EchartsLineGraph extends Component {
   }
 }
 
-{
-  /* <ReactEcharts
-  option={options}
-  notMerge={true}
-  lazyUpdate={true}
-  theme={"theme_name"}
-  onChartReady={this.onChartReadyCallback}
-  onEvents={EventsDict} /> */
-}
+EchartsLineGraph.propTypes = {
+  legendData: PropTypes.arrayOf(PropTypes.string).isRequired,
+  timeData: PropTypes.arrayOf(PropTypes.string).isRequired,
+  seriesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      symbolSize: PropTypes.number.isRequired,
+      hoverAnimation: PropTypes.bool.isRequired
+    })
+  ).isRequired,
+  legendItemsSelected: PropTypes.string.isRequired,
+  chartTitle: PropTypes.string.isRequired,
+  chartSubtitle: PropTypes.string.isRequired
+};
 
 export default EchartsLineGraph;

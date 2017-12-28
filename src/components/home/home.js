@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import * as moment from 'moment';
@@ -7,21 +8,19 @@ import NavBar from '../nav-bar/nav-bar-container';
 import ComponentSwitch from '../component-switch/component-switch-container';
 import MetricsOfTheDay from '../daily-stats/daily-stats-container';
 import GraphDrilldown from '../graph-drilldown/graph-drilldown-container';
-// import TableDrilldown from '../table-drilldown/table-drilldown-container';
+import DataTableDrilldown from '../data-table-drilldown/data-table-drilldown-container';
 
 /* FOR TABLE */
 // import SearchBar from '../search-bar/search-bar-container';
 // import DatePicker from '../date-picker/date-picker-container';
 
 /* FOR GRAPH */
-// import MetricSelector from '../metric-selector/metric-selector-container';
 // import DateRangeSelector from '../date-range-selector/date-range-selector-container';
-// import LineChart from '../charts/line-chart/line-chart-container';
 
 const componentMap = {
   M: MetricsOfTheDay,
-  G: GraphDrilldown
-  // T: TableDrilldown
+  G: GraphDrilldown,
+  T: DataTableDrilldown
 };
 
 class Home extends Component {
@@ -75,5 +74,12 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  getPerUnitPerDay: PropTypes.func.isRequired,
+  getAggregatePerDay: PropTypes.func.isRequired,
+  onSelectDateRange: PropTypes.func.isRequired,
+  getManufactureBreakdown: PropTypes.func.isRequired
+};
 
 export default Home;

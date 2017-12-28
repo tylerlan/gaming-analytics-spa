@@ -30,25 +30,28 @@ const toolbarStyles = theme => ({
   }
 });
 
-const EnhancedDataTableToolbar = props => {
-  const { numSelected, classes, value, handleSearch } = props;
-
-  return (
-    <Toolbar
-      className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0
-      })}
-    >
-      <div>
-        <TextField placeholder="Search" onChange={handleSearch} value={value} />
-      </div>
-    </Toolbar>
-  );
-};
+const EnhancedDataTableToolbar = ({
+  numSelected,
+  classes,
+  value,
+  handleSearch
+}) => (
+  <Toolbar
+    className={classNames(classes.root, {
+      [classes.highlight]: numSelected > 0
+    })}
+  >
+    <div>
+      <TextField placeholder="Search" onChange={handleSearch} value={value} />
+    </div>
+  </Toolbar>
+);
 
 EnhancedDataTableToolbar.propTypes = {
+  numSelected: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired
+  value: PropTypes.number.isRequired,
+  handleSearch: PropTypes.func.isRequired
 };
 
 export default withStyles(toolbarStyles)(EnhancedDataTableToolbar);
