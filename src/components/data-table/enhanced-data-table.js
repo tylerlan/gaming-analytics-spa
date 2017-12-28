@@ -1,142 +1,18 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import keycode from 'keycode';
 import Table, {
   TableBody,
   TableCell,
   TableFooter,
-  TableHead,
   TablePagination,
-  TableRow,
-  TableSortLabel
+  TableRow
 } from 'material-ui/Table';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
-import IconButton from 'material-ui/IconButton';
-import Tooltip from 'material-ui/Tooltip';
-import DeleteIcon from 'material-ui-icons/Delete';
-import FilterListIcon from 'material-ui-icons/FilterList';
-import TextField from 'material-ui/TextField';
-
-let counter = 0;
-function createData(name, calories, fat, carbs, protein) {
-  counter += 1;
-  return { id: counter, name, calories, fat, carbs, protein };
-}
-
-const columnData = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Dessert (100g serving)'
-  },
-  { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-  { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-  { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' }
-];
-
-class EnhancedDataTableHead extends Component {
-  static propTypes = {
-    numSelected: PropTypes.number.isRequired,
-    onRequestSort: PropTypes.func.isRequired,
-    order: PropTypes.string.isRequired,
-    orderBy: PropTypes.string.isRequired,
-    rowCount: PropTypes.number.isRequired
-  };
-
-  createSortHandler = property => event => {
-    this.props.onRequestSort(event, property);
-  };
-
-  render() {
-    const { order, orderBy, numSelected, rowCount, inputData } = this.props;
-
-    return (
-      <TableHead>
-        <TableRow>
-          {columnData.map(column => {
-            return (
-              <TableCell
-                key={column.id}
-                numeric={column.numeric}
-                disablePadding={column.disablePadding}
-                sortDirection={orderBy === column.id ? order : false}
-              >
-                <Tooltip
-                  title="Sort"
-                  placement={column.numeric ? 'bottom-end' : 'bottom-start'}
-                  enterDelay={300}
-                >
-                  <TableSortLabel
-                    active={orderBy === column.id}
-                    direction={order}
-                    onClick={this.createSortHandler(column.id)}
-                  >
-                    {column.label}
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-            );
-          }, this)}
-        </TableRow>
-      </TableHead>
-    );
-  }
-}
-
-const toolbarStyles = theme => ({
-  root: {
-    paddingRight: 2
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.A700,
-          backgroundColor: theme.palette.secondary.A100
-        }
-      : {
-          color: theme.palette.secondary.A100,
-          backgroundColor: theme.palette.secondary.A700
-        },
-  spacer: {
-    flex: '1 1 100%'
-  },
-  actions: {
-    color: theme.palette.text.secondary
-  },
-  title: {
-    flex: '0 0 auto'
-  }
-});
-
-let EnhancedDataTableToolbar = props => {
-  const { numSelected, classes, value, handleSearch } = props;
-
-  return (
-    <Toolbar
-      className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0
-      })}
-    >
-      <div>
-        <TextField placeholder="Search" onChange={handleSearch} value={value} />
-      </div>
-    </Toolbar>
-  );
-};
-
-EnhancedDataTableToolbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired
-};
-
-EnhancedDataTableToolbar = withStyles(toolbarStyles)(EnhancedDataTableToolbar);
+import EnhancedDataTableHead from './enhanced-data-table-head';
+import EnhancedDataTableToolbar from './enhanced-data-table-toolbar';
 
 const styles = theme => ({
   root: {
@@ -152,44 +28,16 @@ const styles = theme => ({
 });
 
 class EnhancedDataTable extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
       order: 'asc',
       orderBy: 'calories',
       selected: [],
       searchValue: '',
-      data: [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9),
-        createData('Donut', 452, 25.0, 51, 4.9),
-        createData('Honeycomb', 408, 3.2, 87, 6.5),
-        createData('Jelly Bean', 375, 0.0, 94, 0.0),
-        createData('KitKat', 518, 26.0, 65, 7.0),
-        createData('Lollipop', 392, 0.2, 98, 0.0),
-        createData('Marshmallow', 318, 0, 81, 2.0),
-        createData('Nougat', 360, 19.0, 9, 37.0),
-        createData('Oreo', 437, 18.0, 63, 4.0)
-      ],
-      filterData: [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9),
-        createData('Donut', 452, 25.0, 51, 4.9),
-        createData('Honeycomb', 408, 3.2, 87, 6.5),
-        createData('Jelly Bean', 375, 0.0, 94, 0.0),
-        createData('KitKat', 518, 26.0, 65, 7.0),
-        createData('Lollipop', 392, 0.2, 98, 0.0),
-        createData('Marshmallow', 318, 0, 81, 2.0),
-        createData('Nougat', 360, 19.0, 9, 37.0),
-        createData('Oreo', 437, 18.0, 63, 4.0)
-      ],
+      data: this.props.inputData,
+      filterData: this.props.inputData,
       page: 0,
       rowsPerPage: 5
     };
@@ -291,8 +139,6 @@ class EnhancedDataTable extends Component {
           handleSearch={this.handleSearch}
           value={this.searchValue}
         />
-        {/*
-         */}
         <div className={classes.tableWrapper}>
           <Table>
             <EnhancedDataTableHead
@@ -318,11 +164,17 @@ class EnhancedDataTable extends Component {
                       key={n.id}
                       selected={isSelected}
                     >
-                      <TableCell>{n.name}</TableCell>
-                      <TableCell numeric>{n.calories}</TableCell>
-                      <TableCell numeric>{n.fat}</TableCell>
-                      <TableCell numeric>{n.carbs}</TableCell>
-                      <TableCell numeric>{n.protein}</TableCell>
+                      <TableCell>{n.mfg}</TableCell>
+                      <TableCell numeric>{n.coinIn}</TableCell>
+                      <TableCell numeric>{n.handlePulls}</TableCell>
+                      <TableCell numeric>{n.netWin}</TableCell>
+                      <TableCell numeric>{n.theoWin}</TableCell>
+                      <TableCell numeric>{n.machineDays}</TableCell>
+                      <TableCell numeric>{n.coinInPerc}</TableCell>
+                      <TableCell numeric>{n.handlePullsPerc}</TableCell>
+                      <TableCell numeric>{n.netWinPerc}</TableCell>
+                      <TableCell numeric>{n.theoWinPerc}</TableCell>
+                      <TableCell numeric>{n.machineDaysPerc}</TableCell>
                     </TableRow>
                   );
                 })}
