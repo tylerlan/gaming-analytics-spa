@@ -22,7 +22,7 @@ const styles = theme => ({
     minWidth: 800
   },
   tableWrapper: {
-    overflowX: 'auto'
+    overflowX: 'scroll'
   }
 });
 
@@ -100,25 +100,32 @@ class EnhancedDataTable extends Component {
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   handleSearch = event => {
+    event.preventDefault();
     const { data } = this.state;
-    let filteredDatas = [];
-    filteredDatas = data.filter(e => {
-      let mathesItems = Object.values(e);
-      let retVal = true;
-      mathesItems.forEach(e => {
-        const regex = new RegExp(event.target.value, 'gi');
-        if (typeof e === 'string') retVal = e.match(regex);
-      });
-      return retVal;
+    const searchTerm = event.target.value;
+
+    // FILTER THE ROWS
+    // Based on whether any of the values in the row match input
+    let filteredData = data.filter(row => {
+      let s = searchTerm.toString();
+      let rowValues = Object.values(row);
+
+      for (let i = 0; i < rowValues.length; i++) {
+        let str = rowValues[i].toString();
+        if (str.match(s) && str.match(s).length > 0) return true;
+      }
+
+      return false;
     });
+
     this.setState({
-      filterData: filteredDatas,
-      searchValue: event.target.value
+      filterData: filteredData,
+      searchValue: searchTerm
     });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, dateRange, selectDateRange } = this.props;
     const {
       filterData,
       order,
@@ -134,6 +141,7 @@ class EnhancedDataTable extends Component {
     return (
       <Paper className={classes.root}>
         <EnhancedDataTableToolbar
+          dateRange={dateRange}
           numSelected={selected.length}
           handleSearch={this.handleSearch}
           value={this.searchValue}
