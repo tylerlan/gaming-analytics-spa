@@ -4,9 +4,20 @@ import EnhancedDataTable from '../data-table/enhanced-data-table';
 
 class DataTableDrilldown extends Component {
   render() {
-    const { mfgmixRecords, mfgmixDateRange, currentDateRange } = this.props;
+    const {
+      mfgmixRecords,
+      mfgmixDateRange,
+      currentDateRange,
+      onSelectDateRange
+    } = this.props;
 
-    return <EnhancedDataTable inputData={mfgmixRecords} />;
+    return (
+      <EnhancedDataTable
+        inputData={mfgmixRecords}
+        dateRange={mfgmixDateRange || currentDateRange}
+        selectDateRange={onSelectDateRange}
+      />
+    );
   }
 }
 
@@ -26,8 +37,12 @@ DataTableDrilldown.propTypes = {
       machineDaysPerc: PropTypes.string.isRequired
     })
   ).isRequired,
-  mfgmixDateRange: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currentDateRange: PropTypes.arrayOf(PropTypes.string).isRequired
+  mfgmixDateRange: PropTypes.shape({
+    to: PropTypes.string.isRequired,
+    from: PropTypes.string.isRequired
+  }).isRequired,
+  currentDateRange: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSelectDateRange: PropTypes.func.isRequired
 };
 
 export default DataTableDrilldown;

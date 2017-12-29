@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DataTableDrilldown from './data-table-drilldown';
-import { onChangeSection } from '../../redux/actions/thunks';
+import { onSelectDateRange } from '../../redux/actions/thunks';
 
 export const mapStateToProps = state => {
   const mfgmixRecords = state.data.mfgmix.records;
@@ -22,7 +22,7 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      onChangeSection
+      onSelectDateRange
     },
     dispatch
   );
