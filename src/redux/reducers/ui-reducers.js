@@ -10,6 +10,15 @@ const currentSection = (state = null, action) => {
   }
 };
 
+const navMobileStatus = (state = false, action) => {
+  switch (action.type) {
+    case CONST.TOGGLE_NAV:
+      return !action.navMobileStatus;
+    default:
+      return state;
+  }
+};
+
 const currentMetric = (state = null, action) => {
   switch (action.type) {
     case CONST.SET_METRIC:
@@ -31,5 +40,6 @@ const currentDateRange = (state = null, action) => {
 export default combineReducers({
   currentSection,
   currentMetric,
-  currentDateRange
+  currentDateRange,
+  navMobileStatus
 });

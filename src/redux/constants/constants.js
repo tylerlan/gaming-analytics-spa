@@ -1,4 +1,5 @@
 export const SET_SECTION = 'SET_SECTION';
+export const TOGGLE_NAV = 'TOGGLE_NAV';
 export const SET_METRIC = 'SET_METRIC';
 export const SET_DATERANGE = 'SET_DATERANGE';
 
