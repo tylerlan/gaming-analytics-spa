@@ -23,9 +23,12 @@ class GraphDrilldown extends Component {
 
   generateSelectedMetricsLegend(metrics, currentMetric) {
     let selectedMetrics = {};
+
+    // if there's no metric selected, select them all!
     metrics.forEach(metric => {
-      selectedMetrics[metric] = metric === currentMetric;
+      selectedMetrics[metric] = currentMetric ? metric === currentMetric : true;
     });
+
     return selectedMetrics;
   }
 
@@ -56,10 +59,10 @@ class GraphDrilldown extends Component {
     //
     const timeData = aggrDates;
     //
-    // if there's no metric selected, select them all!
-    const selectedMetrics = currentMetric
-      ? this.generateSelectedMetricsLegend(metricsLegend, currentMetric)
-      : aggrMetrics;
+    const selectedMetrics = this.generateSelectedMetricsLegend(
+      metricsLegend,
+      currentMetric
+    );
 
     return (
       <div>
@@ -77,14 +80,12 @@ class GraphDrilldown extends Component {
 }
 
 GraphDrilldown.propTypes = {
-  aggrMetrics: PropTypes.arrayOf(
-    PropTypes.shape({
-      dates: PropTypes.string.isRequired,
-      metrics: PropTypes.string.isRequired
-    })
-  ).isRequired,
+  aggrMetrics: PropTypes.shape({
+    dates: PropTypes.string.isRequired,
+    metrics: PropTypes.string.isRequired
+  }),
   aggrDates: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currentMetric: PropTypes.string.isRequired,
+  currentMetric: PropTypes.string,
   currentDateRange: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 

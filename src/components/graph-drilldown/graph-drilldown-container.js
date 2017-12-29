@@ -3,8 +3,6 @@ import { bindActionCreators } from 'redux';
 import GraphDrilldown from './graph-drilldown';
 import { onChangeSection } from '../../redux/actions/thunks';
 
-import * as moment from 'moment';
-
 export const mapStateToProps = state => {
   const aggrMetrics = state.data.aggr.metrics;
   const aggrDates = state.data.aggr.dates;
