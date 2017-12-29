@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import GraphDrilldown from './graph-drilldown';
-import { onChangeSection } from '../../redux/actions/thunks';
+import { onChangeSection, onSelectDateRange } from '../../redux/actions/thunks';
 
 export const mapStateToProps = state => {
   const aggrMetrics = state.data.aggr.metrics;
@@ -22,7 +22,8 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      onChangeSection
+      onChangeSection,
+      onSelectDateRange
     },
     dispatch
   );

@@ -13,7 +13,7 @@ function get(path) {
 
 export default class Api {
   static async getPUPD(dateRange) {
-    const [from, to] = dateRange; // e.g. dateRange = {'2017/11/04', '2017/12/04 '}
+    const [from, to] = dateRange; // e.g. dateRange = {from:'2017/11/04', to:'2017/12/04 '}
     console.log('API CALL ---- PUPD');
     const pupdData = await get(
       `${BASE_URL}/per-unit-per-day?from=${from}&to=${to}`

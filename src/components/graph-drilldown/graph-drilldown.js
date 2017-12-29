@@ -1,12 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
 import EchartsLineGraph from '../echarts/echarts-line-graph';
+import DatePicker from '../date-picker/date-picker-container';
+
+const graphDrilldownStyles = theme => ({
+  datePicker: {
+    marginLeft: '30%'
+  }
+});
 
 class GraphDrilldown extends Component {
   constructor(props) {
     super(props);
 
     this.generateSeries = this.generateSeries.bind(this);
+  }
+
+  componentDidMount() {
+    // check to see whether we have the data in the store needed to render the graph
+    const {
+      aggrMetrics,
+      aggrDates,
+      currentSection,
+      currentMetric,
+      currentDateRange
+    } = this.props;
   }
 
   objectOfArraysOfData(objectOfObjects) {
@@ -46,19 +65,18 @@ class GraphDrilldown extends Component {
 
   render() {
     const {
+      classes,
       aggrMetrics,
       aggrDates,
       currentMetric,
-      currentDateRange
+      currentDateRange,
+      onSelectDateRange
     } = this.props;
 
     const metricsLegend = Object.keys(aggrMetrics);
-    //
     const metricsArrays = this.objectOfArraysOfData(aggrMetrics);
     const metricsSeries = this.generateSeries(metricsArrays);
-    //
     const timeData = aggrDates;
-    //
     const selectedMetrics = this.generateSelectedMetricsLegend(
       metricsLegend,
       currentMetric
@@ -74,6 +92,9 @@ class GraphDrilldown extends Component {
           chartTitle={currentMetric || 'all'}
           chartSubtitle={currentDateRange}
         />
+        <div className={classes.datePicker}>
+          <DatePicker />
+        </div>
       </div>
     );
   }
@@ -89,4 +110,4 @@ GraphDrilldown.propTypes = {
   currentDateRange: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-export default GraphDrilldown;
+export default withStyles(graphDrilldownStyles)(GraphDrilldown);
