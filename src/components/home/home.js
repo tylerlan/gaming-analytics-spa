@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
 import * as moment from 'moment';
 
+import AppHeader from '../app-header/app-header-container';
 import NavBar from '../nav-bar/nav-bar-container';
 import ComponentSwitch from '../component-switch/component-switch-container';
+
 import MetricsOfTheDay from '../daily-stats/daily-stats-container';
 import GraphDrilldown from '../graph-drilldown/graph-drilldown-container';
 import DataTableDrilldown from '../data-table-drilldown/data-table-drilldown-container';
@@ -23,9 +24,62 @@ const componentMap = {
   T: DataTableDrilldown
 };
 
+const drawerWidth = 240;
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    height: '100%',
+    marginTop: theme.spacing.unit * 3,
+    zIndex: 1,
+    overflow: 'hidden'
+  },
+  appFrame: {
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+    overflow: 'scroll'
+  },
+  appBar: {
+    position: 'absolute',
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      width: `calc(100% - ${drawerWidth}px)`
+    }
+  },
+  navIconHide: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    }
+  },
+  drawerPaper: {
+    width: 250,
+    [theme.breakpoints.up('md')]: {
+      width: drawerWidth,
+      position: 'relative',
+      height: '100%'
+    }
+  },
+  content: {
+    backgroundColor: theme.palette.background.default,
+    width: '100%',
+    height: '100%',
+    overfloow: 'scroll',
+    padding: theme.spacing.unit * 3,
+    height: 'calc(100% - 56px)',
+    marginTop: 56,
+    [theme.breakpoints.up('sm')]: {
+      height: 'calc(100% - 64px)',
+      marginTop: 64
+    }
+  }
+});
+
 class Home extends Component {
   async componentDidMount() {
-    let today = moment().format('YYYY/MM/DD');
+    // let today = moment().format('YYYY/MM/DD');
+    let today = '2017/12/17'; // the API does not currently support later dates than this
     let threeMonthsAgo = moment()
       .subtract(3, 'months')
       .format('YYYY/MM/DD');
@@ -47,29 +101,17 @@ class Home extends Component {
   }
 
   render() {
-    return (
-      <div style={{ backgroundColor: '#eee', height: '100%' }}>
-        <Grid container spacing={0} alignItems="stretch">
-          <Grid item>
-            <Grid
-              container
-              direction="column"
-              spacing={0}
-              justify="space-between"
-              alignItems="center"
-            >
-              <Grid item>
-                <NavBar />
-              </Grid>
-            </Grid>
-          </Grid>
+    const { classes } = this.props;
 
-          <Grid item style={{ flex: 1 }}>
-            <Paper style={{ height: '100%', padding: '20px' }}>
-              <ComponentSwitch components={componentMap} />
-            </Paper>
-          </Grid>
-        </Grid>
+    return (
+      <div className={classes.root}>
+        <div className={classes.appFrame}>
+          <AppHeader classes={classes} />
+          <NavBar classes={classes} />
+          <main className={classes.content}>
+            <ComponentSwitch components={componentMap} />
+          </main>
+        </div>
       </div>
     );
   }
@@ -82,4 +124,4 @@ Home.propTypes = {
   getManufactureBreakdown: PropTypes.func.isRequired
 };
 
-export default Home;
+export default withStyles(styles)(Home);
