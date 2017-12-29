@@ -20,62 +20,52 @@ class EnhancedDataTableHead extends Component {
       {
         id: 'mfg',
         numeric: false,
-        disablePadding: false,
         label: 'Manufacturer'
       },
       {
         id: 'coinIn',
         numeric: true,
-        disablePadding: false,
         label: 'Coin In Total'
       },
       {
         id: 'handlePulls',
         numeric: true,
-        disablePadding: false,
         label: 'Handle Pulls Total'
       },
-      { id: 'netWin', numeric: true, disablePadding: false, label: 'Net Win' },
+      { id: 'netWin', numeric: true, label: 'Net Win' },
       {
         id: 'theoWin',
         numeric: true,
-        disablePadding: false,
         label: 'Theoretical Win'
       },
       {
         id: 'machineDays',
         numeric: true,
-        disablePadding: false,
         label: 'Machine Days Total'
       },
       {
         id: 'coinInPerc',
         numeric: true,
-        disablePadding: false,
         label: 'Coin In %'
       },
       {
         id: 'handlePullsPerc',
         numeric: true,
-        disablePadding: false,
         label: 'Handle Pulls %'
       },
       {
         id: 'netWinPerc',
         numeric: true,
-        disablePadding: false,
         label: 'Net Win %'
       },
       {
         id: 'theoWinPerc',
         numeric: true,
-        disablePadding: false,
         label: 'Theoretical Win %'
       },
       {
         id: 'machineDaysPerc',
         numeric: true,
-        disablePadding: false,
         label: 'Machine Days %'
       }
     ];
@@ -88,7 +78,6 @@ class EnhancedDataTableHead extends Component {
               <TableCell
                 key={column.id}
                 numeric={column.numeric}
-                disablePadding={column.disablePadding}
                 sortDirection={orderBy === column.id ? order : false}
               >
                 <Tooltip
