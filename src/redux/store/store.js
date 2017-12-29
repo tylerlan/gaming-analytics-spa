@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers';
-import Api from '../utils/Api';
+import Api from '../utils/api.js';
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
