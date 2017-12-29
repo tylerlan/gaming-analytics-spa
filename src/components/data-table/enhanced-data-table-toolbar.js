@@ -3,7 +3,9 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
+import DatePicker from '../date-picker/date-picker-container';
 
 const toolbarStyles = theme => ({
   root: {
@@ -34,23 +36,32 @@ const EnhancedDataTableToolbar = ({
   numSelected,
   classes,
   value,
-  handleSearch
+  handleSearch,
+  dateRange
 }) => (
-  <Toolbar
-    className={classNames(classes.root, {
-      [classes.highlight]: numSelected > 0
-    })}
-  >
-    <div>
+  <div>
+    <Toolbar
+      className={classNames(classes.root, {
+        [classes.highlight]: numSelected > 0
+      })}
+    >
+      <Typography type="title" color="inherit" className={classes.flex}>
+        Manufacturers Mix
+      </Typography>
+    </Toolbar>
+    <Toolbar>
+      <DatePicker />
+    </Toolbar>
+    <Toolbar>
       <TextField placeholder="Search" onChange={handleSearch} value={value} />
-    </div>
-  </Toolbar>
+    </Toolbar>
+  </div>
 );
 
 EnhancedDataTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   handleSearch: PropTypes.func.isRequired
 };
 
