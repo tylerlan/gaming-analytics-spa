@@ -99,7 +99,14 @@ EchartsLineGraph.propTypes = {
       hoverAnimation: PropTypes.bool.isRequired
     })
   ).isRequired,
-  legendItemsSelected: PropTypes.string.isRequired,
+  legendItemsSelected: PropTypes.shape({
+    coinIn: PropTypes.bool,
+    coinOut: PropTypes.bool,
+    jackpots: PropTypes.bool,
+    handlePulls: PropTypes.bool,
+    netWin: PropTypes.bool,
+    theoWin: PropTypes.bool
+  }).isRequired,
   chartTitle: PropTypes.string.isRequired,
   chartSubtitle: PropTypes.string.isRequired
 };
