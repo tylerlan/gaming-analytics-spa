@@ -13,7 +13,11 @@ const ComponentSwitch = ({ selected, components }) => {
 
 ComponentSwitch.propTypes = {
   selected: PropTypes.string.isRequired,
-  components: PropTypes.arrayOf(PropTypes.string).isRequired
+  components: PropTypes.shape({
+    M: PropTypes.func.isRequired,
+    G: PropTypes.func.isRequired,
+    T: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default ComponentSwitch;
