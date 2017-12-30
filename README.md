@@ -8,14 +8,8 @@ A coding challenge to build a gaming data viewer. This project was created with
 1. Please fork and clone this repo.
 2. `cd gaming-analytics-spa`
 3. `npm i`
-4. `touch .env.development`
-5. Add the API url like so:
-
-```
-REACT_APP_API_URL=http://localhost:8000/
-```
-
-6. `npm start`
+4. `echo REACT_APP_API_URL=http://localhost:8000/ > .env.development`
+5. `npm start`
 
 # Running the API
 
