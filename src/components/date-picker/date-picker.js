@@ -47,9 +47,10 @@ export class DatePicker extends Component {
   handleFormSubmit = async event => {
     event.preventDefault();
 
-    // NOTE: NEED TO STANDARDIZE HOW DATE RANGE IS REPRESENTED IN THE APP AND STORE
-    // Right now it's either {from: '2017/10/10' to: '2017/11/10'}
-    // or it's ['2017/10/10', '2017/11/10']
+    // NOTE: IT'S WORTH CONSIDERING WHETHER TO MAKE state.data.mfgmix.dateRange A TUPLE, LIKE state.ui.currentDateRange
+    // state.data.mfgmix.dateRange is organized like so: {from: '2017/10/10' to: '2017/11/10'}
+    // state.ui.currentDateRange is organized like so: ['2017/10/10', '2017/11/10']
+    // It doesn't really matter in this context
     const { currentFromDate, currentToDate } = this.state;
 
     let dateRange = [currentFromDate, currentToDate];
@@ -57,8 +58,10 @@ export class DatePicker extends Component {
     try {
       await this.props.onSelectDateRange(dateRange);
       await this.props.getPerUnitPerDay(dateRange);
+      await this.props.getAggregatePerDay(dateRange);
+      await this.props.getManufactureBreakdown(dateRange);
     } catch (e) {
-      console.log('something went wrong:', e);
+      console.error('something went wrong:', e);
     }
   };
 

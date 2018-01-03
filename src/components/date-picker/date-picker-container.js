@@ -2,8 +2,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DatePicker from './date-picker';
 import {
+  onSelectDateRange,
   getPerUnitPerDay,
-  onSelectDateRange
+  getAggregatePerDay,
+  getManufactureBreakdown
 } from '../../redux/actions/thunks';
 
 const mapStateToProps = state => {
@@ -16,7 +18,9 @@ export const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       onSelectDateRange,
-      getPerUnitPerDay
+      getPerUnitPerDay,
+      getAggregatePerDay,
+      getManufactureBreakdown
     },
     dispatch
   );
