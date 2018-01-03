@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import initialState from '../store/initial-state';
 import * as CONST from '../constants/constants';
 
-const currentSection = (state = null, action) => {
+const currentSection = (state = initialState.ui.currentSection, action) => {
   switch (action.type) {
     case CONST.SET_SECTION:
       return action.section;
@@ -10,7 +11,7 @@ const currentSection = (state = null, action) => {
   }
 };
 
-const navMobileStatus = (state = false, action) => {
+const navMobileStatus = (state = initialState.ui.navMobileStatus, action) => {
   switch (action.type) {
     case CONST.TOGGLE_NAV:
       return !action.navMobileStatus;
@@ -19,7 +20,7 @@ const navMobileStatus = (state = false, action) => {
   }
 };
 
-const currentMetric = (state = null, action) => {
+const currentMetric = (state = initialState.ui.currentMetric, action) => {
   switch (action.type) {
     case CONST.SET_METRIC:
       return action.metric;
@@ -28,7 +29,7 @@ const currentMetric = (state = null, action) => {
   }
 };
 
-const currentDateRange = (state = null, action) => {
+const currentDateRange = (state = initialState.ui.currentDateRange, action) => {
   switch (action.type) {
     case CONST.SET_DATERANGE:
       return action.dateRange;

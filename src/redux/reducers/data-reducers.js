@@ -1,41 +1,47 @@
 import { combineReducers } from 'redux';
+import initialState from '../store/initial-state';
 import * as CONST from '../constants/constants';
 
-const pupd = (state = { dates: [], metrics: {} }, action) => {
+const pupd = (state = initialState.data.pupd, action) => {
   switch (action.type) {
     case CONST.ADD_PUPD:
       const { dates, metrics } = action.pupdData;
 
+      // NOTE: This is wiping out the current data and replacing it with the result of the action
+      // NOTE: The Thunk will do the work of understanding what data is duplicate data and
+      // 1) Only making API call for the data we do not currently have, and
+      // 2) Returning a composite of what we have already plus the new stuff to this reducer
+
       return {
-        dates: [...state.dates, ...dates],
-        metrics: { ...state.metrics, ...metrics }
+        dates: [...dates],
+        metrics: { ...metrics }
       };
 
-    // NOTE: It is possible to get some duplicate data. Perhaps dates should be made a SET.
+    // NOTE: This procedure of extracting dates and metrics from the action and adding it to the store could be abstracted into a function that could serve at least two of these reducers
 
     default:
       return state;
   }
 };
 
-const aggr = (state = { dates: [], metrics: {} }, action) => {
+const aggr = (state = initialState.data.aggr, action) => {
   switch (action.type) {
     case CONST.ADD_AGGR:
       const { dates, metrics } = action.aggrData;
 
-      return {
-        dates: [...state.dates, ...dates],
-        metrics: { ...state.metrics, ...metrics }
-      };
+      // NOTE: This is wiping out the current data and replacing it with the result of the action
 
-    // NOTE: It is possible to get some duplicate data. Perhaps dates should be made a SET.
+      return {
+        dates: [...dates],
+        metrics: { ...metrics }
+      };
 
     default:
       return state;
   }
 };
 
-const mfgmix = (state = { dateRange: {}, records: [] }, action) => {
+const mfgmix = (state = initialState.data.mfgmix, action) => {
   switch (action.type) {
     case CONST.ADD_MFGMIX:
       const { dateRange, records } = action.mfgmixData;
