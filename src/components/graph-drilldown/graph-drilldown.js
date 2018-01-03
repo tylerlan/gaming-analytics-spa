@@ -17,17 +17,6 @@ class GraphDrilldown extends Component {
     this.generateSeries = this.generateSeries.bind(this);
   }
 
-  componentDidMount() {
-    // check to see whether we have the data in the store needed to render the graph
-    const {
-      aggrMetrics,
-      aggrDates,
-      currentSection,
-      currentMetric,
-      currentDateRange
-    } = this.props;
-  }
-
   objectOfArraysOfData(objectOfObjects) {
     let valuesArrayByMetric = {};
 
@@ -69,8 +58,7 @@ class GraphDrilldown extends Component {
       aggrMetrics,
       aggrDates,
       currentMetric,
-      currentDateRange,
-      onSelectDateRange
+      currentDateRange
     } = this.props;
 
     const metricsLegend = Object.keys(aggrMetrics);
@@ -82,7 +70,9 @@ class GraphDrilldown extends Component {
       currentMetric
     );
 
-    return (
+    return !metricsSeries.length ? (
+      <div>Loading...</div>
+    ) : (
       <div>
         <EchartsLineGraph
           legendData={metricsLegend}
@@ -90,7 +80,9 @@ class GraphDrilldown extends Component {
           seriesData={metricsSeries}
           legendItemsSelected={selectedMetrics}
           chartTitle={currentMetric || 'all'}
-          chartSubtitle={currentDateRange}
+          chartSubtitle={`From ${currentDateRange[0]} to ${
+            currentDateRange[1]
+          }`}
         />
         <div className={classes.datePicker}>
           <DatePicker />
@@ -102,9 +94,16 @@ class GraphDrilldown extends Component {
 
 GraphDrilldown.propTypes = {
   aggrMetrics: PropTypes.shape({
-    dates: PropTypes.string.isRequired,
-    metrics: PropTypes.string.isRequired
-  }),
+    dates: PropTypes.arrayOf(PropTypes.string),
+    metrics: PropTypes.shape({
+      coinIn: PropTypes.object,
+      coinOut: PropTypes.object,
+      jackpots: PropTypes.object,
+      handlePulls: PropTypes.object,
+      netWin: PropTypes.object,
+      theoWin: PropTypes.object
+    })
+  }).isRequired,
   aggrDates: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentMetric: PropTypes.string,
   currentDateRange: PropTypes.arrayOf(PropTypes.string).isRequired

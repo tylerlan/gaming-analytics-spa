@@ -1,45 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import EnhancedDataTable from '../data-table/enhanced-data-table';
 
-class DataTableDrilldown extends Component {
-  render() {
-    const {
-      mfgmixRecords,
-      mfgmixDateRange,
-      currentDateRange,
-      onSelectDateRange
-    } = this.props;
-
-    return (
-      <EnhancedDataTable
-        inputData={mfgmixRecords}
-        dateRange={mfgmixDateRange || currentDateRange}
-        selectDateRange={onSelectDateRange}
-      />
-    );
-  }
-}
+const DataTableDrilldown = ({
+  mfgmixRecords,
+  mfgmixDateRange,
+  currentDateRange,
+  onSelectDateRange
+}) => {
+  return !mfgmixRecords.length ? (
+    <div>Loading...</div>
+  ) : (
+    <EnhancedDataTable
+      inputData={mfgmixRecords}
+      dateRange={mfgmixDateRange || currentDateRange}
+    />
+  );
+};
 
 DataTableDrilldown.propTypes = {
   mfgmixRecords: PropTypes.arrayOf(
     PropTypes.shape({
-      mfg: PropTypes.string.isRequired,
-      coinIn: PropTypes.number.isRequired,
-      handlePulls: PropTypes.number.isRequired,
-      netWin: PropTypes.number.isRequired,
-      theoWin: PropTypes.number.isRequired,
-      machineDays: PropTypes.number.isRequired,
-      coinInPerc: PropTypes.string.isRequired,
-      handlePullsPerc: PropTypes.string.isRequired,
-      netWinPerc: PropTypes.string.isRequired,
-      theoWinPerc: PropTypes.string.isRequired,
-      machineDaysPerc: PropTypes.string.isRequired
+      mfg: PropTypes.string,
+      coinIn: PropTypes.number,
+      handlePulls: PropTypes.number,
+      netWin: PropTypes.number,
+      theoWin: PropTypes.number,
+      machineDays: PropTypes.number,
+      coinInPerc: PropTypes.string,
+      handlePullsPerc: PropTypes.string,
+      netWinPerc: PropTypes.string,
+      theoWinPerc: PropTypes.string,
+      machineDaysPerc: PropTypes.string
     })
   ).isRequired,
   mfgmixDateRange: PropTypes.shape({
-    to: PropTypes.string.isRequired,
-    from: PropTypes.string.isRequired
+    to: PropTypes.string,
+    from: PropTypes.string
   }).isRequired,
   currentDateRange: PropTypes.arrayOf(PropTypes.string).isRequired,
   onSelectDateRange: PropTypes.func.isRequired
