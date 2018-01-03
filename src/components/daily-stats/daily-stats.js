@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
+import Grid from 'material-ui/Grid';
 import DailyStatCard from '../daily-stat-card/daily-stat-card-container';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    background: theme.palette.background.paper
+    justifyContent: 'flex-start',
+    overflow: 'hidden'
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -26,27 +26,51 @@ const styles = theme => ({
   }
 });
 
-const MetricsOfTheDay = ({ todaysMetrics, mostRecentDayWithData }) => (
-  <div className={'MetricsOfTheDay'}>
-    <h3>Averages Per Unit</h3>
-    <p>showing data from: {mostRecentDayWithData}</p>
-    <GridList cols={2.5}>
-      {Object.keys(todaysMetrics).map(metric => (
-        <GridListTile key={todaysMetrics[metric] + Math.random()}>
-          <DailyStatCard metric={metric} value={todaysMetrics[metric]} />
-        </GridListTile>
-      ))}
-    </GridList>
-  </div>
-);
+// const MetricsOfTheDay = ({ todaysMetrics, mostRecentDayWithData, classes }) => {
+//   return !todaysMetrics || !mostRecentDayWithData ? (
+//     <div>Loading...</div>
+//   ) : (
+//     <div>
+//       <h3>Averages Per Unit</h3>
+//       <p>showing data from: {mostRecentDayWithData}</p>
+//       <GridList className={classes.gridList} cols={2.5}>
+//         {Object.keys(todaysMetrics).map((metric, index) => (
+//           <GridListTile key={index}>
+//             <DailyStatCard metric={metric} value={todaysMetrics[metric]} />
+//           </GridListTile>
+//         ))}
+//       </GridList>
+//     </div>
+//   );
+// };
+
+const MetricsOfTheDay = ({ todaysMetrics, mostRecentDayWithData, classes }) => {
+  return !todaysMetrics || !mostRecentDayWithData ? (
+    <div>Loading...</div>
+  ) : (
+    <div>
+      <h3>Averages Per Unit</h3>
+      <p>showing data from: {mostRecentDayWithData}</p>
+      <div className={classes.root}>
+        <GridList cols={2.5}>
+          {Object.keys(todaysMetrics).map((metric, index) => (
+            <GridListTile key={index}>
+              <DailyStatCard metric={metric} value={todaysMetrics[metric]} />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
+    </div>
+  );
+};
 
 MetricsOfTheDay.propTypes = {
   todaysMetrics: PropTypes.shape({
-    coinIn: PropTypes.number.isRequired,
-    netWin: PropTypes.number.isRequired,
-    handlePulls: PropTypes.number.isRequired,
-    actualHoldPercent: PropTypes.number.isRequired,
-    theoHoldPercent: PropTypes.number.isRequired
+    coinIn: PropTypes.number,
+    netWin: PropTypes.number,
+    handlePulls: PropTypes.number,
+    actualHoldPercent: PropTypes.number,
+    theoHoldPercent: PropTypes.number
   }).isRequired,
   mostRecentDayWithData: PropTypes.string.isRequired
 };

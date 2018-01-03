@@ -6,10 +6,8 @@ import Typography from 'material-ui/Typography';
 
 const styles = {
   card: {
-    maxWidth: 345
-  },
-  media: {
-    height: 200
+    maxWidth: '345px',
+    minWidth: '125px'
   }
 };
 
@@ -26,7 +24,13 @@ function applySymbols(metric, value) {
   return value;
 }
 
-const DailyStatCard = ({ metric, value, onChangeSection, onSelectMetric }) => (
+const DailyStatCard = ({
+  metric,
+  value,
+  onChangeSection,
+  onSelectMetric,
+  classes
+}) => (
   <div
     className="DailyStatCard"
     style={{ cursor: 'pointer' }}
@@ -35,7 +39,7 @@ const DailyStatCard = ({ metric, value, onChangeSection, onSelectMetric }) => (
       await onSelectMetric(metric);
     }}
   >
-    <Card>
+    <Card className={classes.card}>
       <CardContent>
         <Typography type="headline" component="h2">
           {applySymbols(metric, value)}
