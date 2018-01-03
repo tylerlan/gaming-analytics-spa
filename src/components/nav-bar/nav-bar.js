@@ -29,7 +29,12 @@ const NavBar = ({
         <ListItem
           button
           key={sec.key}
-          onClick={() => onChangeSection(sec.key)}
+          onClick={() => {
+            onChangeSection(sec.key);
+            if (navMobileStatus === true) {
+              navDrawerToggle(navMobileStatus);
+            }
+          }}
           className={sec.key === section ? 'section-selected' : null}
           style={{ paddingLeft: '8px', paddingRight: '8px' }}
         >
