@@ -125,7 +125,7 @@ class EnhancedDataTable extends Component {
   };
 
   render() {
-    const { classes, dateRange, selectDateRange } = this.props;
+    const { classes, dateRange } = this.props;
     const {
       filterData,
       order,
@@ -158,7 +158,7 @@ class EnhancedDataTable extends Component {
             <TableBody>
               {filterData
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
+                .map((n, index) => {
                   const isSelected = this.isSelected(n.id);
                   return (
                     <TableRow
@@ -166,7 +166,7 @@ class EnhancedDataTable extends Component {
                       onClick={event => this.handleClick(event, n.id)}
                       onKeyDown={event => this.handleKeyDown(event, n.id)}
                       tabIndex={-1}
-                      key={n.id}
+                      key={index}
                       selected={isSelected}
                     >
                       <TableCell>{n.mfg}</TableCell>
